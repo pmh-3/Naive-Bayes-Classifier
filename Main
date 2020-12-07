@@ -1,0 +1,110 @@
+
+# Day, Outlook, Temperature, Humidity, Wind, Play Tennis?
+
+#Data
+tennisDays = ((1, "Sunny", "Hot", "High", "Weak", "No"),
+
+(2, "Sunny", "Hot", "High", "Strong", "No"),
+
+(3, "Overcast", "Hot", "High", "Weak", "Yes"),
+
+(4, "Rainy", "Average", "High", "Weak", "Yes"),
+
+(5, "Rainy", "Cool", "Average", "Weak", "Yes"),
+
+(6, "Rainy", "Cool", "Average", "Strong", "No"),
+
+(7, "Overcast", "Cool", "Average", "Strong", "Yes"),
+
+(8, "Sunny", "Average", "High", "Weak", "No"),
+
+(9, "Sunny", "Cool", "Average", "Weak", "Yes"),
+
+(10, "Rainy", "Average", "Average", "Weak", "Yes"),
+
+(11, "Sunny", "Average", "Average", "Strong", "Yes"),
+
+(12, "Overcast", "Average", "High", "Strong", "Yes"),
+
+(13, "Overcast", "Hot", "Average", "Weak", "Yes"),
+
+(14, "Rainy", "Average", "High", "Strong", "No"))
+
+#prior probability of deciding to play tennis
+yes = 0
+no = 0
+total = 0
+
+for f in tennisDays:
+    YN = str(f[5])
+
+    if YN == "Yes":
+        yes += 1
+    else:
+        no += 1
+
+total = no + yes
+#print(yes, no, total)
+
+#calculating class conditionals
+
+#Initialize 
+#outlook
+OGY = 0
+#Temperature
+TGY = 0
+#Humidity
+HGY = 0
+#Wind
+WGY = 0
+
+OGN = 0
+TGN = 0
+HGN = 0
+WGN = 0
+
+
+todaysFeatures = ["Sunny","Cool","High","Strong"]
+todaysFeatures[0] = input("enter today's outlook: ")
+todaysFeatures[1] = input("enter today's temperature: ")
+todaysFeatures[2] = input("enter today's humidity: ")
+todaysFeatures[3] = input("enter today's wind: ")
+#print(todaysFeatures)
+
+for x in tennisDays:
+    YN = str(x[5])
+    outlook = str(x[1])
+    temperature = str(x[2])
+    humidity = str(x[3])
+    wind = str(x[4])
+
+    if YN == "Yes":
+        if outlook == todaysFeatures[0].capitalize():
+            OGY += 1
+        if temperature == todaysFeatures[1].capitalize():
+            TGY += 1
+        if humidity == todaysFeatures[2].capitalize():
+            HGY += 1
+        if wind == todaysFeatures[3].capitalize():
+            WGY += 1
+    if YN == "No":
+        if outlook == todaysFeatures[0].capitalize():
+            OGN += 1
+        if temperature == todaysFeatures[1].capitalize():
+            TGN += 1
+        if humidity == todaysFeatures[2].capitalize():
+            HGN += 1
+        if wind == todaysFeatures[3].capitalize():
+            WGN += 1
+
+# proportional probability tennis will be played given features
+
+PPY = 0
+PPY = ((OGY/yes)*(TGY/yes)*(HGY/yes)*(WGY/yes))*(yes/total)
+#print(PPY)
+
+PPN = 0
+PPN = ((OGN/no)*(TGN/no)*(HGN/no)*(WGN/no))*(no/total)
+#print(PPN)
+percentProbY = round(((PPY/(PPY+PPN))*100),2)
+print("There is a " + str(percentProbY) + "% chance that tennis will be played given the features: "+ todaysFeatures[0]+ " " +todaysFeatures[1]+ " "+todaysFeatures[2]+ " "+todaysFeatures[3])
