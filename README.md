@@ -1,5 +1,5 @@
 # Naive-Bayes-Classifier
-Implementing probabilities to predict the future. First step towards artificial intelligence.
+Implementing probabilities to predict the future.
 
 #By leveraging the data from past decisions, this program estimates the outcome given a set of features.
 
